@@ -53,6 +53,11 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
+group :development, :test, :system_test do
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 5.0.0'
+end
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
@@ -71,3 +76,5 @@ group :test do
 end
 
 gem 'rubocop', '>= 1.0', '< 2.0'
+
+gem 'devise'
