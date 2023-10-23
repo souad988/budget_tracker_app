@@ -1,6 +1,6 @@
 class ExpenseTransaction < ApplicationRecord
-    belongs_to :author, class_name: 'User'
-    belongs_to :expense_category
+  belongs_to :author, class_name: 'User'
+    belongs_to :group
   
     # Attributes
     attribute :name, :string
