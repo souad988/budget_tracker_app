@@ -86,3 +86,6 @@ gem 'cancancan'
 # Use Devise for user authentication 
 gem 'devise'
 
+# Use font-awesome-sass for icons
+gem 'font-awesome-sass', '~> 6.4.2'
+
