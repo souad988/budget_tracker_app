@@ -3,7 +3,16 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    @groups = Group.all
+    authenticate_user!
+    @user = current_user
+    @groups = @user.groups.includes(:expense_transactions).order('created_at DESC')
+
+    # Initialize total amount of all transactions
+    @global_expense_amount = 0.0
+    # Loop through each expense category and collect its transactions amount
+    @groups.each do |group|
+      @global_expense_amount += group.expense_transactions.sum(:amount)
+    end
   end
 
   # GET /groups/1 or /groups/1.json
@@ -19,8 +28,9 @@ class GroupsController < ApplicationController
 
   # POST /groups or /groups.json
   def create
+    authenticate_user!
     @group = Group.new(group_params)
-
+    @group.author = current_user
     respond_to do |format|
       if @group.save
         format.html { redirect_to group_url(@group), notice: 'Group was successfully created.' }
