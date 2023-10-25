@@ -16,7 +16,12 @@ class GroupsController < ApplicationController
   end
 
   # GET /groups/1 or /groups/1.json
-  def show; end
+  def show
+    authenticate_user!
+    @group = Group.find(params[:id])
+    @expense_transactions = @group.expense_transactions.order('created_at DESC')
+    @total_amount = @group.expense_transactions.sum(&:amount).round(2)
+  end
 
   # GET /groups/new
   def new

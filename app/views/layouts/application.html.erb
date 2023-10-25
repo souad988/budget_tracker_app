@@ -14,7 +14,14 @@
   <% if user_signed_in? %> 
     <div class='header'>
    
-    <i class="fa-solid fa-bars icons"></i>
+
+    <% if session[:current_route] == groups_path %>
+  <i class="fa-solid fa-bars icons"></i>
+<% else %>
+  <%= link_to session[:previous_route], class: 'link' do %>
+    <i class="fa-solid fa-arrow-left icons"></i>
+  <% end %>
+<% end %>
     <h1>CATEGORIES</h1>
     
        <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class:'header_link' do %>
@@ -24,8 +31,6 @@
     <% end %>
   </div>
   <%end%>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

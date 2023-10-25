@@ -1,7 +1,9 @@
 <div class='container'>
-<p class='total_amount'>Total budget: <%= @global_expense_amount.round(2) %>$</p>
 
-<div class="expense_categories">
+
+
+<div class="sub_container">
+  <p class='total_amount'>Total budget: <%= @global_expense_amount.round(2) %>$</p>
   <% @groups.each do |group| %>
     <%= render group %>
   <% end %>

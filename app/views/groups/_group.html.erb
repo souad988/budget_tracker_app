@@ -1,17 +1,17 @@
-<div id="<%= dom_id group %>">
-  <p>
-    <strong>Name:</strong>
-    <%= group.name %>
-  </p>
 
-  <p>
-    <strong>Icon:</strong>
-    <%= group.icon %>
-  </p>
+<%= link_to group_path(group),class:'link' do  %>
+  <div id="<%= dom_id group %>" class='card_container'>
+   <div class='flex_horizontal'>
+    <img src="<%= group.icon %>" class='category_img' />
+    <div class='flex_vertical'>
+    <strong><%= group.name %></strong>
+    <small><strong><%= group.created_at.strftime('%d%b %Y') %></strong></small>
+    </div>
+    </div>
+    <div class='card_footer'>
+        <p><%= group.expense_transactions.sum(&:amount).round(2)  %>$</p>
+    </div>
+     
+  </div>
 
-  <p>
-    <strong>User:</strong>
-    <%= group.user_id %>
-  </p>
-
-</div>
+<%end%>  

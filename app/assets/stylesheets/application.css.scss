@@ -74,6 +74,9 @@
     font-size: 1.5rem;
     width: 100%;
     margin-top: 1em;
+    box-sizing: border-box; /* add this */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
   }
   
   input[type="text"],
@@ -164,7 +167,7 @@
     padding: 1rem;
   }
   
-  .expense_categories {
+  .sub_container {
     width: 90%;
     margin: auto;
   }
