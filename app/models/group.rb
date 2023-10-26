@@ -7,6 +7,6 @@ class Group < ApplicationRecord
   attribute :icon, :string
 
   # Validations
-  validates :name, presence: true, uniqueness: true,length: { maximum: 255 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 255 }
   validates :icon, presence: true
 end

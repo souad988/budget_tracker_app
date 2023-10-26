@@ -53,7 +53,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 end
 
-# Use rspec for testing 
+# Use rspec for testing
 group :development, :test, :system_test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
@@ -70,22 +70,21 @@ group :development do
   # gem "spring"
 end
 
-# Use Capybara for system testing 
+# Use Capybara for system testing
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
 end
 
-#Use Rubocop to enforce a consistent Ruby code style 
+# Use Rubocop to enforce a consistent Ruby code style
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 # Use CanCanCan for authorization
 gem 'cancancan'
 
-# Use Devise for user authentication 
+# Use Devise for user authentication
 gem 'devise'
 
 # Use font-awesome-sass for icons
 gem 'font-awesome-sass', '~> 6.4.2'
-
