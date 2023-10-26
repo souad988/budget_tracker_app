@@ -1,10 +1,17 @@
+<div class='container'>
 <p style="color: green"><%= notice %></p>
+<p style="color: red"><%= alert %></p>
+<div class='sub_container'>
+  <h1><%= @group.name %></h1>
+  <p total_amount>Total Amount: <%= @group.expense_transactions.sum(&:amount).round(2)  %>$</p>
+  </div>
+<div class="sub_container">
+<% @group.expense_transactions.each do |expense_transaction| %> 
+  <%= render expense_transaction %>
+<% end %>
+</div>
+<br>  
 
-<%= render @group %>
-
-<div>
-  <%= link_to "Edit this group", edit_group_path(@group) %> |
-  <%= link_to "Back to groups", groups_path %>
-
-  <%= button_to "Destroy this group", @group, method: :delete %>
+  <%= link_to "Add Transaction", new_group_expense_transaction_path(@group), class:'link_as_button secondary_button' %> 
+  
 </div>

@@ -12,6 +12,7 @@ class ExpenseTransactionsController < ApplicationController
   # GET /expense_transactions/new
   def new
     @expense_transaction = ExpenseTransaction.new
+    @groups = current_user.groups
   end
 
   # GET /expense_transactions/1/edit
@@ -20,11 +21,13 @@ class ExpenseTransactionsController < ApplicationController
   # POST /expense_transactions or /expense_transactions.json
   def create
     @expense_transaction = ExpenseTransaction.new(expense_transaction_params)
-
+    @expense_transaction.author = current_user
+    @group = Group.find(expense_transaction_params[:group_id])
+    @expense_transaction.group = @group
     respond_to do |format|
       if @expense_transaction.save
         format.html do
-          redirect_to expense_transaction_url(@expense_transaction),
+          redirect_to group_url(@group),
                       notice: 'Expense transaction was successfully created.'
         end
         format.json { render :show, status: :created, location: @expense_transaction }
@@ -37,10 +40,11 @@ class ExpenseTransactionsController < ApplicationController
 
   # PATCH/PUT /expense_transactions/1 or /expense_transactions/1.json
   def update
+    @group = Group.find(expense_transaction_params[:group_id])
     respond_to do |format|
       if @expense_transaction.update(expense_transaction_params)
         format.html do
-          redirect_to expense_transaction_url(@expense_transaction),
+          redirect_to group_url(@group),
                       notice: 'Expense transaction was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @expense_transaction }
