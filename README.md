@@ -2,6 +2,8 @@
 
   <h3><b>Budget Tracker</b></h3>
 
+  ![Capture d’écran du 2023-10-28 00-45-50](https://github.com/souad988/budget_tracker_app/assets/59707859/7e264066-3fdf-4bb3-a875-514547e88b06)
+
 </div>
 
 <!-- TABLE OF CONTENTS -->
