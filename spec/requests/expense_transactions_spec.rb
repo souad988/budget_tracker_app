@@ -15,28 +15,24 @@ require 'rails_helper'
 RSpec.describe '/expense_transactions', type: :request do
   # ExpenseTransaction. As you add validations to ExpenseTransaction, be sure to
   # adjust the attributes here as well.
+  include Devise::Test::IntegrationHelpers
+  before(:each) do
+    allow(Devise.mailer).to receive(:confirmation_instructions).and_return(
+      double('Mailer', deliver: true)
+    )
+    @user = User.create(name: 'test', email: 'test@gmail.com', password: 'test123')
+    puts @user.errors.full_messages unless @user.persisted?
+    @user.confirm # Confirm the user's email
+    sign_in @user
+    @group = Group.create(name: 'food', icon: 'https://food.png', author: @user)
+  end
+
   let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
+    { name: 'food', amount: 100 }
   end
 
   let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
-  end
-
-  describe 'GET /index' do
-    it 'renders a successful response' do
-      ExpenseTransaction.create! valid_attributes
-      get expense_transactions_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      expense_transaction = ExpenseTransaction.create! valid_attributes
-      get expense_transaction_url(expense_transaction)
-      expect(response).to be_successful
-    end
+    { name: '', icon: '' }
   end
 
   describe 'GET /new' do
@@ -46,84 +42,20 @@ RSpec.describe '/expense_transactions', type: :request do
     end
   end
 
-  describe 'GET /edit' do
-    it 'render a successful response' do
-      expense_transaction = ExpenseTransaction.create! valid_attributes
-      get edit_expense_transaction_url(expense_transaction)
-      expect(response).to be_successful
-    end
-  end
-
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new ExpenseTransaction' do
         expect do
+          valid_attributes[:group_id] = @group.id
           post expense_transactions_url, params: { expense_transaction: valid_attributes }
         end.to change(ExpenseTransaction, :count).by(1)
       end
 
-      it 'redirects to the created expense_transaction' do
+      it 'redirects to group ' do
+        valid_attributes[:group_id] = @group.id
         post expense_transactions_url, params: { expense_transaction: valid_attributes }
-        expect(response).to redirect_to(expense_transaction_url(ExpenseTransaction.last))
+        expect(response).to redirect_to(group_url(ExpenseTransaction.last.group))
       end
-    end
-
-    context 'with invalid parameters' do
-      it 'does not create a new ExpenseTransaction' do
-        expect do
-          post expense_transactions_url, params: { expense_transaction: invalid_attributes }
-        end.to change(ExpenseTransaction, :count).by(0)
-      end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post expense_transactions_url, params: { expense_transaction: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        skip('Add a hash of attributes valid for your model')
-      end
-
-      it 'updates the requested expense_transaction' do
-        expense_transaction = ExpenseTransaction.create! valid_attributes
-        patch expense_transaction_url(expense_transaction), params: { expense_transaction: new_attributes }
-        expense_transaction.reload
-        skip('Add assertions for updated state')
-      end
-
-      it 'redirects to the expense_transaction' do
-        expense_transaction = ExpenseTransaction.create! valid_attributes
-        patch expense_transaction_url(expense_transaction), params: { expense_transaction: new_attributes }
-        expense_transaction.reload
-        expect(response).to redirect_to(expense_transaction_url(expense_transaction))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        expense_transaction = ExpenseTransaction.create! valid_attributes
-        patch expense_transaction_url(expense_transaction), params: { expense_transaction: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe 'DELETE /destroy' do
-    it 'destroys the requested expense_transaction' do
-      expense_transaction = ExpenseTransaction.create! valid_attributes
-      expect do
-        delete expense_transaction_url(expense_transaction)
-      end.to change(ExpenseTransaction, :count).by(-1)
-    end
-
-    it 'redirects to the expense_transactions list' do
-      expense_transaction = ExpenseTransaction.create! valid_attributes
-      delete expense_transaction_url(expense_transaction)
-      expect(response).to redirect_to(expense_transactions_url)
     end
   end
 end
