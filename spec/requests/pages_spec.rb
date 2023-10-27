@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Pages', type: :request do
-  describe 'GET /index' do
-    pending "add some examples (or delete) #{__FILE__}"
+  describe 'GET /root' do
+    it 'renders a successful response' do
+      get '/'
+      expect(response).to be_successful
+    end
   end
 end
