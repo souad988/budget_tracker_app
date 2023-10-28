@@ -1,0 +1,28 @@
+<%= form_with(model: expense_transaction ,  url: (expense_transaction.new_record? ? expense_transactions_path() : expense_transaction_path(expense_transaction)), method: (expense_transaction.new_record? ? :post : :patch)) do |form| %>
+  <% if expense_transaction.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(expense_transaction.errors.count, "error") %> prohibited this expense_transaction from being saved:</h2>
+
+      <ul>
+        <% expense_transaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.text_field :name, placeholder:'name' %>
+  </div>
+
+  <div>
+    <%= form.text_field :amount, placeholder:'amount' %>
+  </div>
+
+  <div class="">
+  <%= form.collection_select(:group_id, groups, :id, :name, { prompt: 'Select Category' }, class: 'form-select') %>
+  </div>
+
+    <%= form.submit %>
+
+<% end %>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BudgetTrackerApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <% if user_signed_in? %> 
+    <div class='header'>
+   
+
+    <% if session[:current_route] == groups_path %>
+  <i class="fa-solid fa-bars icons"></i>
+<% else %>
+  <%= link_to session[:previous_route], class: 'link' do %>
+    <i class="fa-solid fa-arrow-left icons"></i>
+  <% end %>
+<% end %>
+    <h1><%= @current_headline %></h1>
+       <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class:'header_link' do %>
+        <i class="fa-solid fa-right-from-bracket icons"></i>
+        
+    <% end %>
+  </div>
+  <%end%>
+    <%= yield %>
+  </body>
+</html>
