@@ -105,12 +105,14 @@ To run the project, execute the following command:
 
 To run tests, run the following command:
 
-  bin/rails test test/models/post_test.rb
+  rspec
 
 
-### Deployment
+### Deployment And Demo
 
-coming soon 
+https://budget-tracker-28h5.onrender.com/ 
+
+https://www.loom.com/share/8903e0f7ed9e4978bed33422e3c0e0ae?sid=aacbdffc-e4e8-4ba4-9cdf-42c590317f27
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,6 +157,8 @@ If you like this project please show your support by adding a star
 <!-- ACKNOWLEDGEMENTS -->
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+My Acknowledgements to Gregoire Vella on Behance the author of the original design, as required by the Creative Commons license of the design. Gregoire Vella on Behance the author of the original design, as required by the Creative Commons license of the design.
 
 I would like to thank the microverse community for there continous support and help. 
 
