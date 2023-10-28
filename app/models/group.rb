@@ -1,6 +1,7 @@
 class Group < ApplicationRecord
   belongs_to :author, class_name: 'User'
-  has_many :expense_transactions
+  has_many :groups_expense_transactions
+  has_many :expense_transactions, through: :groups_expense_transactions
 
   # Attributes
   attribute :name, :string

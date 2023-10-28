@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_25_065258) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_28_131933) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,11 +18,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_065258) do
     t.string "name"
     t.float "amount"
     t.bigint "author_id", null: false
-    t.bigint "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_expense_transactions_on_author_id"
-    t.index ["group_id"], name: "index_expense_transactions_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -32,6 +30,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_065258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_groups_on_author_id"
+  end
+
+  create_table "groups_expense_transactions", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "expense_transaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expense_transaction_id"], name: "index_groups_expense_transactions_on_expense_transaction_id"
+    t.index ["group_id"], name: "index_groups_expense_transactions_on_group_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,7 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_065258) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "expense_transactions", "groups"
   add_foreign_key "expense_transactions", "users", column: "author_id"
   add_foreign_key "groups", "users", column: "author_id"
+  add_foreign_key "groups_expense_transactions", "expense_transactions"
+  add_foreign_key "groups_expense_transactions", "groups"
 end
