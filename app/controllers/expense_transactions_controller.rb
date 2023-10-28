@@ -22,7 +22,7 @@ class ExpenseTransactionsController < ApplicationController
   def create
     @group = Group.find(expense_transaction_params[:group_id])
     expense_transaction_params.delete(:group_id)
-    p('espense_transaction_params',expense_transaction_params) 
+    p('espense_transaction_params', expense_transaction_params)
     @expense_transaction = ExpenseTransaction.new(expense_transaction_params.except(:group_id))
     @expense_transaction.author = current_user
     @expense_transaction.groups << @group
