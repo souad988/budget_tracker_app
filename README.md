@@ -156,7 +156,7 @@ If you like this project please show your support by adding a star
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-My Acknowledgements to Gregoire Vella on Behance the author of the original design, as required by the Creative Commons license of the design. Gregoire Vella on Behance the author of the original design, as required by the Creative Commons license of the design.
+As per project requirements, The README should contain an "Acknowledgements" section or similar that gives appropriate credit to [Gregoire Vella on Behance](https://www.behance.net/gregoirevella) the [author of the original design](https://www.behance.net/gallery/19759151/Snapscan-iOs-design-and-branding?tracking_source=), as required by the [Creative Commons license of the design](https://creativecommons.org/licenses/by-nc/4.0/).
 
 I would like to thank the microverse community for there continous support and help. 
 
