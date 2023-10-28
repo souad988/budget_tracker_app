@@ -20,10 +20,12 @@ class ExpenseTransactionsController < ApplicationController
 
   # POST /expense_transactions or /expense_transactions.json
   def create
-    @expense_transaction = ExpenseTransaction.new(expense_transaction_params)
-    @expense_transaction.author = current_user
     @group = Group.find(expense_transaction_params[:group_id])
-    @expense_transaction.group = @group
+    expense_transaction_params.delete(:group_id)
+    p('espense_transaction_params',expense_transaction_params) 
+    @expense_transaction = ExpenseTransaction.new(expense_transaction_params.except(:group_id))
+    @expense_transaction.author = current_user
+    @expense_transaction.groups << @group
     respond_to do |format|
       if @expense_transaction.save
         format.html do
